@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.OData.Builder;
+using System.Web.Http.OData.Extensions;
+using Ex3D41.Models;
 
 namespace Ex3D41
 {
@@ -13,7 +16,10 @@ namespace Ex3D41
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-
+           
+            ODataConventionModelBuilder builder = new ODataConventionModelBuilder();
+            builder.EntitySet<Class1>("Class1s");
+            config.Routes.MapODataServiceRoute("odata", "odata", builder.GetEdmModel());
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
